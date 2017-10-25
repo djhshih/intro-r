@@ -9,8 +9,6 @@ Requisite: None.
 
 Preparation: Install [RStudio](https://www.rstudio.com).
 
-Material: https://github.com/djhshih/intro-r
-
-Download:
+Material:
 [slides](https://github.com/djhshih/intro-r/releases/download/v1.0/intro-r.pdf) | 
 [data](https://github.com/djhshih/intro-r/releases/download/v1.0/data.zip)
