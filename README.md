@@ -12,3 +12,5 @@ Preparation: Install [RStudio](https://www.rstudio.com).
 Material:
 [slides](https://github.com/djhshih/intro-r/releases/download/v1.0.1/intro-r.pdf) | 
 [data](https://github.com/djhshih/intro-r/releases/download/v1.0.1/data.zip)
+
+Time: 1 hour (lecture format), 3 hour (workshop format)
