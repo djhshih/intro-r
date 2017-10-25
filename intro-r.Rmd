@@ -1,0 +1,910 @@
+---
+title: "Introduction to R"
+author: "David J. H. Shih"
+date: "dshih@broadinstitute.org"
+output:
+  beamer_presentation:
+    colortheme: "beaver"
+    highlight: "tango"
+    fig_caption: false
+    includes:
+      in_header: header.tex
+---
+
+
+## Class Desciption
+
+R is a leading programming languages for statistical analysis and data science. In this introductory course, you will master the basics of R data types, vector operations, control expressions, and function definitions. Geared with these fundamentals, you will be ready to undertake your first data analysis using R.
+
+\medskip
+
+Requisite: None.
+
+Preparation: Install RStudio (https://www.rstudio.com).
+
+
+## Class Syllabus
+
+1. R background and use case
+2. Rstudio
+3. Why R is useful: R software repositories
+4. Using R effectively: Thinking in terms of vectors
+5. Learning the nouns of the R language: Data types
+    - Logical, integer, numeric, and character vectors
+    - Matrix and array
+    - Factor
+    - List and data frame
+6. Finding and reading documentation
+7. Verbs: Loops and apply functions
+8. Conditionals: if-expression and logical vector indexing
+9. Functions and scope
+10. Workflow: input, analysis, plotting, and output
+
+
+## Achieve proficiency by rote memorization
+
+Can you recite the keys on a standard keyboard in order from top to bottom and left to right?
+
+\includegraphics{img/keyboard.pdf}
+
+\bigskip
+
+Yet your fingers usually type the write key.
+
+
+## Is R the only programming language you will ever need?
+
+Programming languages used in Github repositories authored by **Hadley Wickham**:
+
+- R
+- Ruby
+- C, C++
+- Javascript
+- Bash
+
+
+## R background and use case
+
+\includegraphics[width=50px]{img/rlogo.png}
+
+- Open-source programming environment (GPLv2)
+- First released in 1993
+- Derived from statistical programming language S
+- Routinely tested across platform:  
+  Linux, Windows, MacOS, Solaris
+
+----
+
+- *Not* a great general-purpose programming language
+- *Not* performant (unless used carefully)
+- Inconsistent syntax, type system, function names, ...
+- Rife with landmines ![](img/warning.png){width=10px}
+- ~~Paucity of help resources~~
+
+Despite all this, R is 
+
+- fueled by **open-source software package repositories**
+- used by many statisticians, quantitative analysts, data scientists, 
+  bioinformaticians, and computational biologists
+
+R is *not* a Swiss-army knife,  
+but R packages empower *statistical analysis* and *data science*!
+
+
+## RStudio
+
+Open source integrated development environment
+https://www.rstudio.com
+
+\bigskip
+
+**Other options**
+
+Vim with Nvim-R plugin  
+http://www.vim.org/scripts/script.php?script_id=2628
+
+Emacs with ESS package  
+https://ess.r-project.org
+
+Jupyter notebook  
+https://jupyter.org
+
+
+## Why R is useful: R software repositories
+
+**Comprehensive R Archive Network (CRAN)**
+
+```{r, eval=FALSE}
+install.packages("io");
+```
+
+**Bioconductor**
+
+```{r, eval=FALSE}
+source("http://bioconductor.org/biocLite.R");
+biocLite("limma");
+```
+
+----
+
+**R-Forge**
+
+```{r, eval=FALSE}
+install.packages("partykit",
+  repos="http://r-forge.r-project.org");
+```
+
+**Git repositories** (Github, Bitbucket, Gitorious ...)
+
+```{r, eval=FALSE}
+library(devtools);
+install_github("hadley/devtools");
+```
+
+
+## Using R effectively: Thinking in terms of vectors
+
+```{r}
+x <- 1:5;
+x
+
+# add one to each element of x
+for (i in 1:length(x)) {
+  x[i] <- x[i] + 1;
+}
+
+x
+```
+
+----
+
+```{r}
+x <- 1:5;
+x
+
+# add one to each element of x
+x <- x + 1;
+x
+```
+
+----
+
+If vectors have different lengths, the shorter vector is repeated.
+
+```{r}
+x <- 1:5;
+y <- 2:6;
+
+x + y
+```
+
+----
+
+\warning If vectors have different lengths, the shorter vector is repeated.
+
+```{r}
+1:4 + 1:2
+1:4 + 1:3
+```
+
+## Learning the nouns of the R language: Data types
+
+- `vector`
+- `matrix` and `array`
+- `factor`
+- `list` and `data.frame`
+- S3, S4, RC, and R6 objects
+
+
+## Logical, integer, numeric, and character vectors
+
+Vectors are the most basic data types in R.
+
+A vector is a collection of values, often constructed with `c()`
+
+```{r, eval=FALSE}
+c(1, 3, 1, 5)
+c(TRUE, FALSE, TRUE, TRUE)
+c("apple", "orange", "banana")
+```
+
+A single value (i.e. singleton) is actually a `vector` with length 1.
+
+```{r}
+x <- 1;
+length(x)
+```
+
+----
+
+Elements of a `vector` must be all the same type.
+
+```{r, eval=FALSE}
+logical(5)
+integer(5)
+numeric(5)
+character(5)
+```
+
+```{r, eval=FALSE}
+complex(5)
+raw(5)
+```
+
+----
+
+Logical vectors can be constructed by
+
+```{r, eval=FALSE}
+rep(TRUE, 4)
+c(TRUE, TRUE, FALSE, TRUE)
+```
+
+Integer vectors can be constructed by
+
+```{r, eval=FALSE}
+1:5
+seq(1, 6, 2)
+rep(3L, 5)
+c(2L, 1L, 9L, 4L, 6L)
+```
+
+----
+
+Subsetting a vector
+
+```{r}
+x <- c(3, 1, 2, 4);
+x[1]
+x[2:3]
+x[-1]
+```
+
+----
+
+\question How can you get the second and the fourth element?
+
+```{r}
+x <- c(3, 1, 2, 4);
+x
+```
+
+```{r, echo=FALSE}
+x[c(2, 4)]
+```
+
+----
+
+\warning A `character` `vector` is really a vector of strings of single characters.
+```{r}
+x <- "R is useful.";
+length(x)
+nchar(x)
+```
+
+----
+
+\warning The vector type can be **coerced** as needed.
+```{r}
+x <- 1:5;
+x
+
+x[3] <- "a";
+x
+```
+
+An object is coerced into the more flexible type.
+
+----
+
+\question What do you get when you create a vector by concatenating
+your favourite shape and your favourite number together?
+
+```{r, eval=FALSE}
+c("circle", pi)
+```
+
+----
+
+Many functions are available for casting objects of one type to another:
+
+```{r, eval=FALSE}
+as.logical
+as.character
+as.integer
+as.numeric
+```
+
+
+## Matrix and array
+
+A `matrix` object is typically constructed from a `vector`, by specifying the
+dimensions of the matrix. The elements are arranged in *column-major order* by
+default.
+
+```{r}
+x <- matrix(1:6, nrow=2);
+x
+```
+
+----
+
+We can get the dimensions of a matrix using the functions `nrow`, `ncol`, and
+`dim`.
+
+```{r}
+nrow(x)
+ncol(x)
+dim(x)
+```
+
+----
+
+We can access an element by specifying the row and column indices.
+
+```{r}
+x[1, 2]
+```
+
+When any index is omitted, then it is equivalent to selecting all the elements
+in the corresponding dimension.
+
+```{r, eval=FALSE}
+x[1, ]
+x[1, 1:ncol(x)]
+```
+
+----
+
+Selecting a row or column from a `matrix` results in `vector` object.
+
+```{r}
+class(x)
+class(x[1, ])
+class(x[, 2])
+```
+
+----
+
+We can also select a sub-matrix by selecting multiple row or columns.
+
+```{r}
+y <- x[, 2:3];
+y
+class(y)
+```
+
+----
+
+To delete a row or a column, we can use a negative index and assign
+the new `matrix` object to the same variable (or a new variable).
+
+```{r}
+y <- x[, -2];
+y
+```
+
+----
+
+\warning Automatic coercion is convenient but may also cause unanticipated behaviour.
+To prevent coercion, set the `drop` argument to `FALSE`
+
+```{r}
+y <- x[, 3];
+class(y)
+nrow(y)
+```
+
+----
+
+```{r}
+y <- x[, 3, drop=FALSE];
+class(y)
+nrow(y)
+```
+
+----
+
+We can combine matries or vectors together horizontally by
+
+```{r}
+y <- cbind(x[, 1:2], x[, 2:3]);
+y
+```
+
+----
+
+Similarly, `rbind` can be used to bind two matrices (or vectors) together vertically.
+
+\question How can you combine vertically the first two elements in the first row of `x`
+and the last two elements in the second row of `x`?
+
+```{r}
+x <- matrix(1:6, nrow=2);
+x
+```
+
+```{r, echo=FALSE}
+rbind(x[1, 1:2], x[2, 2:3])
+```
+
+## Factor
+
+`factor`s are useful for representing categorical variables and discrete variables.
+
+```{r}
+x <- factor(c("apple", "orange", "apple",
+  rep("banana", 4)));
+x
+```
+
+----
+
+Internally, a `factor` is represented as an integer vector with a `levels`
+attribute that stores the labels for each level (category).
+
+```{r}
+str(x)
+attributes(x)
+```
+
+----
+
+\warning `factor` may behave like an `integer` vector or like a `character` 
+vector, depending on the function.
+
+Therefore, when passing a factor to a function, it is advisable
+to explictly cast factor to `character` or `integer`, depending 
+on which vector the function expects.
+
+```{r}
+sum(as.integer(x))
+nchar(as.character(x))
+```
+
+## List and data frame
+
+Elements of a list can be different types (**heterogeneous container**)
+
+```{r}
+line <- list(
+  name = "segment",
+  start = c(0.1, 3.2),
+  end = c(1.4, 0.2)
+);
+```
+
+`data.frame` a special type of `list` where all the fields have the same length.
+
+
+## Attributes and S3 class
+
+All of the data types introduced so far are actually S3 classes.
+
+Use `str` to inspect an R object.
+
+Use `attributes` to inspect the attributes of an R variable.
+
+A variable's `class` controls which S3 function is called.
+
+```{r, eval=FALSE}
+print.default
+print.factor
+print.data.frame
+print.function
+```
+
+----
+
+Create a new S3 class by specifying the `class` attribute:
+
+```{r}
+x <- 1:6;
+class(x) <- "newton";
+x
+
+structure(1:6, class="newton")
+```
+
+
+## Other classes: S4, RC, and R6
+
+Most of R use **S3** classes (and rely on the `class` attribute).
+
+**S4** classes provides more object-oriented language features.
+Most Bioconductor packages use S4 classes.
+Rcpp modules expose C++ classes as S4 classes.
+
+**Reference class** (**RC**), also known as R5, provides *mutatble* objects. (*Not* widely used)
+
+**R6** class is provided by the [R6](https://cran.r-project.org/web/packages/R6) package; it offers more features and better performance. (*Not* widely used)
+
+
+## Finding and reading documentation
+
+```{r, eval=FALSE}
+?install.packages
+```
+
+```{r, eval=FALSE}
+?t.test
+t.test
+stats:::t.test.default
+```
+
+
+## Verbs: Loops and apply functions
+
+In a system-level programming language,
+
+```{r}
+x <- LETTERS[1:3];
+
+y <- character(length(x));
+for (i in 1:length(x)) {
+  y[i] <- paste(x[i], "is a letter.");
+}
+
+y
+```
+
+----
+
+In R, most functions behave correctly for vectors:
+
+```{r}
+y <- paste(x, "is a letter.")
+```
+
+The functions that only accept singleton/scalar variables may be extended
+to operate on different objects with multiple elements: 
+
+
+object             function
+----------------   -----------
+`list`             `lapply`
+`vector`           `vapply`
+`matrix`           `apply`
+grouped `vector`   `tapply`
+multiple `list`s   `mapply`
+
+`dplyr` library provides functions useful for manipulating `data.frame`s.
+
+
+## Conditionals: if-expression and logical vector indexing
+
+If-expression evaluates either one branch or another, conditioned
+on the result of a logical expression.
+
+```{r}
+z <- sample(1:10, size=1);
+
+if (z < 3) {
+  "small"
+} else {
+  "big"
+}
+```
+
+----
+
+The `ifelse` returns results based on a `logical vector`: 
+
+```{r}
+z <- c(3, 9, 1, 6, 8);
+
+ifelse(z > 5, -1, 1)
+```
+
+----
+
+\question For the sake of equitability... how you can double elements
+of `z` that are less than five and halve elements of `z` that are greater 
+than five?
+
+```{r}
+z <- c(3, 9, 1, 6, 8);
+```
+
+```{r, echo=FALSE}
+ifelse(z < 5, z * 2, z / 2)
+```
+
+----
+
+Earlier, we showed that we can subset a `matrix` using an `integer vector`.
+We can also use a `logical vector` to select rows or columns from a `matrix`.
+
+```{r}
+x <- matrix(1:6, nrow=2);
+
+i <- x > 3;
+x[i]
+```
+
+```{r}
+x[x %% 2 == 0]
+```
+
+----
+
+\question How can you select rows of `x` where the values in the first column
+of `x` are greater than one? 
+
+```{r}
+x <- matrix(1:6, nrow=2);
+x
+```
+
+```{r, echo=FALSE}
+x[x[,1] > 1, ]
+```
+
+----
+
+\question How can you select values of `x` that are odd?
+
+```{r}
+x <- matrix(sample(1:6), nrow=2);
+x
+```
+
+```{r, echo=FALSE}
+x[x %% 2 == 1]
+```
+
+----
+
+\warning Subsetting a matrix may return:
+
+1. `matrix`, when row and column dimensions are both $> 1$; or
+2. `vector`, when either the row or the column dimension is 1
+
+```{r}
+x <- matrix(1:6, nrow=2);
+
+i <- x[1, ] > 1;
+nrow(x[, i]) == 2
+
+j <- which(x[1, ] > 3);
+nrow(x[, j]) == 2
+```
+
+----
+
+\question How can you fix the following code so that it returns
+either `TRUE` or `FALSE`?
+
+```{r}
+x <- matrix(1:6, nrow=2);
+
+j <- which(x[1, ] > 3);
+nrow(x[, j]) == 2
+```
+
+
+## Functions and scope
+
+A function can be defined by
+
+```{r}
+
+halve <- function(a) {
+  a / 2
+}
+```
+
+The scope of `a` is enclosed by the braces.
+
+Outside the function body of `halve`, the object `a` does not exist.
+
+----
+
+Caller's local objects *cannot* be modified by the function
+
+- cf. Fortan and Julia, where all caller's variables are modifiable
+- cf. Python, where caller's mutable variables are modifiable
+- cf. Java, where caller's reference-type variables are modifiable
+
+```{r}
+# Swap elements i and j of vector x
+swap_elements <- function(x, i, j) {
+  z <- x[i];
+  x[i] <- x[j];
+  x[j] <- z;
+}
+```
+
+----
+
+```{r}
+outside <- 1:10;
+outside
+
+swap_elements(outside, 1, 10);
+outside
+```
+
+----
+
+This behaviour is achieved by the **copy-on-write mechanism**
+
+- arguments are passed by reference;  
+  a copy of the object is made whenever function modifies it
+- also implemented in Matlab/Octave
+
+```{r}
+x <- 1:10;
+y <- x;
+y[3] <- -3;
+x
+y
+```
+
+----
+
+Therefore, to update an object, the function must return the modified object,
+and the caller must re-assign its own object.
+
+```{r}
+# Swap elements i and j of vector x
+swap_elements <- function(x, i, j) {
+  z <- x[i];
+  x[i] <- x[j];
+  x[j] <- z;
+  x
+}
+```
+
+----
+
+```{r}
+outside <- 1:10;
+outside
+
+outside <- swap_elements(outside, 1, 10);
+outside
+```
+
+
+## Workflow: input, plotting, analysis
+
+\question Your colleague conducted an experiment where she randomly
+assigned students into control and treatment groups. Both groups
+are given the same homework assignments weekly.
+
+In the control group ($n = 20$), the assignments are *not* graded.
+
+In the treatment group ($n = 21$), the assignments are graded.
+
+At the end of the course, all students take a graded final exam.
+
+She wishes to find out whether assignment grading affects
+the students' grade on the final exam.
+
+Final exam grades for both groups are availabe in the `data/control.vtr`
+and `data/treatment.vtr`.
+
+Useful R functions include:
+`read.table`, `hist`, `boxplot`, `summary`, and `wilcox.test`.
+
+```{r, echo=FALSE, eval=FALSE}
+set.seed(1234);
+g1 <- 100 - rpois(20, 25);
+g2 <- 100 - rpois(21, 20);
+write.table(g1, "data/control.vtr", row.names=FALSE, col.names=FALSE);
+write.table(g2, "data/treatment.vtr", row.names=FALSE, col.names=FALSE);
+```
+
+```{r, echo=FALSE, eval=FALSE}
+# read input data
+
+g1 <- read.table("data/control.vtr", header=FALSE)[,1];
+g2 <- read.table("data/treatment.vtr", header=FALSE)[,1];
+
+# plot input data
+
+hist(g1)
+hist(g2)
+
+qqnorm(g1)
+qqnorm(g2)
+
+boxplot(g1, g2, names=c("control", "treatment"), xlab="group", ylab="final exam grade")
+
+# descriptive statistics
+
+summary(g1)
+summary(g2)
+
+# test hypothesis using statistical test
+
+wilcox.test(g1, g2, alternative="two.side", paired=FALSE)
+
+```
+
+
+# Appendix
+
+
+## Additional resources
+
+Garrett Grolemund & Hadley Wickham (2017). [*R for Data Science*](http://r4ds.had.co.nz).
+
+Roger D. Peng (2016). [*R Programming for Data Science*](https://leanpub.com/rprogramming).
+
+Hadley Wickham (2014). [*Advanced R*](http://adv-r.had.co.nz).
+
+[Bioconductor](http://bioconductor.org)
+
+[Tidyverse](https://www.tidyverse.org)
+
+
+## Syntax: Punctuation and Formatting
+
+Classical Latin and many other ancient written languages had no punctuation or
+formatting (spaces and indentations), which are features of modern languages.
+
+In programming languages, punctuations and formatting similar serve to improve 
+clarity and reduce ambiguity in programming languages. However, some programming
+languages rely more on punctuations, while others rely more on formatting.
+
+In R, the semicolon punctuation (`;`) demarcate the end of statements.
+This is optional but can help the R syntax parser produce clearer debugging
+message and help pinpoint possible syntax error.
+Indeed, since the R parser ignores *most* whitespace (including space, new line, carriage return,
+and tab characters) in a script, a human reader who relies on formatting may misinterpret R code.
+
+----
+
+Python, in contrast, relies on whitespace formatting (e.g. indentation) for syntax parsing.
+Thus, the use of semicolon is discouraged in Python.
+
+In other words, the R parser reads code as a prose, and the Python
+parser reads code as a poem.
+
+Code in this document use the following convention:  
+*Statements always end with semicolons, while expressions never do.*
+
+**Statements** generally do not return any (meaningful) value, while **expressions**
+always return a value.
+
+The Matlab language effectively adopts this convention, and the Rust language
+enforces it as a syntax rule.
+
+
+## Lazy argument evaluation
+
+- arguments are evaluated only when it is needed
+- cf. eager evaluations in C++, Fortran, etc. 
+
+```{r}
+# Evaluate a if x is TRUE; evaluate b otherwise.
+eval_if_else <- function(x, a, b) {
+  if (x) {
+    a
+  } else {
+    b
+  }
+}
+
+eval_if_else(TRUE, print("Sunny!"), print("Cloudy"));
+```
+
+
+## Interoperate with C++ using Rcpp
+
+```{r, eval=FALSE}
+library(Rcpp);
+
+cppFunction("
+// Return the n-th Fibonacci number
+int fib(unsigned int n) {
+  if (n == 0) return 0;
+  if (n == 1) return 1;
+  return fib(n-1) + fib(n-2);
+}
+", verbose=FALSE);
+
+fib(10)
+```
