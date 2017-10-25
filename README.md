@@ -7,7 +7,7 @@ ready to undertake your first data analysis using R.
 
 Requisite: None.
 
-Preparation: Install RStudio (https://www.rstudio.com).
+Preparation: Install [RStudio](https://www.rstudio.com).
 
 Material: https://github.com/djhshih/intro-r
 
