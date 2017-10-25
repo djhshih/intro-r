@@ -287,7 +287,7 @@ x[c(2, 4)]
 
 ----
 
-\warning A `character` `vector` is really a vector of strings of single characters.
+\warning A `character vector` is really a vector of strings of single characters.
 
 ```{r}
 x <- "R is useful.";
@@ -769,7 +769,6 @@ swap_elements(outside, 1, 10);
 outside
 ```
 
-
 ----
 
 To update an object, the function must return the modified object,
@@ -843,7 +842,6 @@ summary(g2)
 # test hypothesis using statistical test
 
 wilcox.test(g1, g2, alternative="two.side", paired=FALSE)
-
 ```
 
 
@@ -868,9 +866,10 @@ Hadley Wickham (2014). [*Advanced R*](http://adv-r.had.co.nz).
 Classical Latin and many other ancient written languages had no punctuation or
 formatting (spaces and indentations), which are features of modern languages.
 
-In programming languages, punctuations and formatting similar serve to improve 
-clarity and reduce ambiguity in programming languages. However, some programming
-languages rely more on punctuations, while others rely more on formatting.
+In programming languages, punctuations and formatting similarly serve to 
+improve clarity and reduce ambiguity in programming languages. However, 
+some programming languages rely more on punctuations, while others rely 
+more on formatting.
 
 In R, the semicolon punctuation (`;`) demarcate the end of statements.
 This is optional but can help the R syntax parser produce clearer debugging
@@ -898,7 +897,8 @@ enforces it as a syntax rule.
 
 ## Copy-on-write mechanism
 
-Implements the feature that caller's objects are not modified by a function.
+Implements the R language feature that caller's objects are not modified 
+by a function.
 
 - arguments are passed by reference;  
   a copy of the object is made whenever function modifies it
