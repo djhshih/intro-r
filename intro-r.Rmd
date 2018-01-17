@@ -838,8 +838,8 @@ At the end of the course, all students take a graded final exam.
 She wishes to find out whether assignment grading affects
 the students' grade on the final exam.
 
-Final exam grades for both groups are availabe in the `data/control.vtr`
-and `data/treatment.vtr`.
+Final exam grades for both groups are availabe in the `data/control.txt`
+and `data/treatment.txt`.
 
 Useful R functions include:
 `read.table`, `hist`, `boxplot`, `summary`, and `wilcox.test`.
@@ -848,15 +848,15 @@ Useful R functions include:
 set.seed(1234);
 g1 <- 100 - rpois(20, 25);
 g2 <- 100 - rpois(21, 20);
-write.table(g1, "data/control.vtr", row.names=FALSE, col.names=FALSE);
-write.table(g2, "data/treatment.vtr", row.names=FALSE, col.names=FALSE);
+write.table(g1, "data/control.txt", row.names=FALSE, col.names=FALSE);
+write.table(g2, "data/treatment.txt", row.names=FALSE, col.names=FALSE);
 ```
 
 ```{r, echo=FALSE, eval=FALSE}
 # read input data
 
-g1 <- read.table("data/control.vtr", header=FALSE)[,1];
-g2 <- read.table("data/treatment.vtr", header=FALSE)[,1];
+g1 <- read.table("data/control.txt", header=FALSE)[,1];
+g2 <- read.table("data/treatment.txt", header=FALSE)[,1];
 
 # plot input data
 
