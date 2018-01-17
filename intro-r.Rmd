@@ -477,7 +477,7 @@ sum(as.integer(x))
 nchar(as.character(x))
 ```
 
-## List and data frame
+## List
 
 Elements of a `list` can be different types;
 a `list` is a **heterogeneous container**.
@@ -489,8 +489,6 @@ line <- list(
   end = c(1.4, 0.2)
 );
 ```
-
-`data.frame` a special type of `list` where all the elements have the same length.
 
 ----
 
@@ -509,6 +507,42 @@ A sublist of a `list` is accessed by
 line[2]
 line[2:3]  # equivalent: line[c("start", "end")]
 ```
+
+## Data frame
+
+`data.frame` is an object useful for storing data in tabular format.
+
+`data.frame` is a special type of `list` where all the elements have the same length.
+
+Often, input data is stored as a comma-delimited file (CSV), and we can
+read the data by
+
+```{r, eval=FALSE}
+d <- read.csv("data/matched.csv");
+```
+
+Different data formats are read using different functions.
+If we had a tab-delimited file whose first row is the column names, then
+
+```{r, eval=FALSE}
+d <- read.table("data/matched.tsv", header=TRUE);
+```
+
+----
+
+The `io` package could simplify file input and output by
+automatically choosing the correct function based on the
+file extension:
+
+```{r, eval=FALSE}
+library(io);
+
+d1 <- qread("data/matched.csv");
+d2 <- qread("data/matched.tsv");
+
+qwrite(d1, "data/matched.rds");
+```
+
 
 ## Attributes and S3 class
 
