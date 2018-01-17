@@ -43,15 +43,18 @@ Material: https://github.com/djhshih/intro-r
 10. Workflow: input, analysis, plotting, and output
 
 
-## Achieve proficiency by rote memorization
+## A small exercise
 
-Can you recite the keys on a standard keyboard in order from left to right and top to bottom?
+*Without looking down on your keyboard*, can you recite the keys on a standard keyboard in order from left to right and top to bottom?
+
+
+## Proficiency achieved by rote memorization
 
 \includegraphics{img/keyboard.pdf}
 
 \bigskip
 
-Yet your fingers usually type the right key.
+Yet your fingers usually type the right key!
 
 
 ## Is R the only programming language you will ever need?
