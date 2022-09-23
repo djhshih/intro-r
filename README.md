@@ -10,7 +10,7 @@ Requisite: None.
 Preparation: Install [RStudio](https://www.rstudio.com).
 
 Material:
-[slides](https://github.com/djhshih/intro-r/releases/download/v1.0.2/intro-r.pdf) | 
+[slides](https://github.com/djhshih/intro-r/releases/download/v1.1/intro-r.pdf) | 
 [data](https://github.com/djhshih/intro-r/releases/download/v1.0.2/data.zip)
 
 Duration: 1 hour (lecture format) or 3 hour (workshop format)
