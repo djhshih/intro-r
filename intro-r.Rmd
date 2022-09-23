@@ -132,8 +132,8 @@ install.packages("io");
 **Bioconductor**
 
 ```{r, eval=FALSE}
-source("http://bioconductor.org/biocLite.R");
-biocLite("limma");
+install.packages("BiocManager");  # do once
+biocManager::install("limma");
 ```
 
 ----
