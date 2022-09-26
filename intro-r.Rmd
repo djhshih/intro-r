@@ -133,7 +133,7 @@ install.packages("io");
 
 ```{r, eval=FALSE}
 install.packages("BiocManager");  # do once
-biocManager::install("limma");
+BiocManager::install("limma");
 ```
 
 ----
